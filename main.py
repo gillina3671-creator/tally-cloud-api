@@ -17,7 +17,7 @@ app.add_middleware(
 )
 
 # Configuration - Replace these with your actual values
-SUPABASE_URL = os.getenv("SUPABASE_URL", "https://nigqhmuzwxxtneenibet.supabase.co")
+SUPABASE_URL = os.getenv("SUPABASE_URL", "https://niigqhmuzwxxtneenibet.supabase.co")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5pZ3FobXV6d3h4dG5lZW5pYmV0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA5NzQ4MjMsImV4cCI6MjA4NjU1MDgyM30.grVUgGJq3WVnaMmDiPZ0LOGIFdfVhZZzTVP90TV7Qcs")
 API_SECRET = os.getenv("API_SECRET", "my-secret-token-12345")
 
