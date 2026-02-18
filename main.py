@@ -18,9 +18,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-SUPABASE_URL = os.getenv("SUPABASE_URL", "")
-SUPABASE_KEY = os.getenv("SUPABASE_KEY", "")
-API_SECRET = os.getenv("API_SECRET", "my-secret-token-12345")
+SUPABASE_URL = "https://nigqhmuzwxxtneenibet.supabase.co"
+SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5pZ3FobXV6d3h4dG5lZW5pYmV0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA5NzQ4MjMsImV4cCI6MjA4NjU1MDgyM30.grVUgGJq3WVnaMmDiPZ0LOGIFdfVhZZzTVP90TV7Qcs"
+API_SECRET = "tally-sync-2024-xK9mP3qR"
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 def verify_agent_token(x_agent_token: str = Header(...)):
