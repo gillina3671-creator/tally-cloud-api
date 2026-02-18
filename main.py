@@ -4,6 +4,9 @@ from supabase import create_client, Client
 from datetime import datetime
 from typing import Optional, List, Dict
 import os
+import os
+print("DEBUG URL:", os.getenv("SUPABASE_URL", "NOT FOUND"))
+print("DEBUG KEY:", os.getenv("SUPABASE_KEY", "NOT FOUND")[:10] if os.getenv("SUPABASE_KEY") else "NOT FOUND")
 
 app = FastAPI(title="Tally Cloud Sync API")
 
