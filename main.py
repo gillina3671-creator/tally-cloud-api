@@ -136,45 +136,45 @@ async def sync_stock_items(
         errors = []
 
         for item in stock_items:
-    try:
-        name = item.get('name', '').strip()
-        if not name:
-            continue
+            try:
+                name = item.get('name', '').strip()
+                if not name:
+                    continue
 
-        # Remove invalid column
-        item.pop("closing_balance", None)
+                # Remove invalid column
+                item.pop("closing_balance", None)
 
-        item['company_id'] = company_id
-        item['updated_at'] = datetime.now().isoformat()
+                item['company_id'] = company_id
+                item['updated_at'] = datetime.now().isoformat()
 
-        # Check if exists
-        existing = supabase.table('stock_items') \
-            .select('id') \
-            .eq('company_id', company_id) \
-            .eq('name', name) \
-            .execute()
+                # Check if exists
+                existing = supabase.table('stock_items') \
+                    .select('id') \
+                    .eq('company_id', company_id) \
+                    .eq('name', name) \
+                    .execute()
 
-        if existing.data:
-            # UPDATE
-            response = supabase.table('stock_items') \
-                .update(item) \
-                .eq('company_id', company_id) \
-                .eq('name', name) \
-                .execute()
-        else:
-            # INSERT
-            item['created_at'] = datetime.now().isoformat()
-            response = supabase.table('stock_items') \
-                .insert(item) \
-                .execute()
+                if existing.data:
+                    # UPDATE
+                    response = supabase.table('stock_items') \
+                        .update(item) \
+                        .eq('company_id', company_id) \
+                        .eq('name', name) \
+                        .execute()
+                else:
+                    # INSERT
+                    item['created_at'] = datetime.now().isoformat()
+                    response = supabase.table('stock_items') \
+                        .insert(item) \
+                        .execute()
 
-        if response.data:
-            synced += 1
-        else:
-            errors.append(str(response.error))
+                if response.data:
+                    synced += 1
+                else:
+                    errors.append(str(response.error))
 
-    except Exception as e:
-        errors.append(f"{item.get('name', 'Unknown')}: {str(e)}")
+            except Exception as e:
+                errors.append(f"{item.get('name', 'Unknown')}: {str(e)}")
 
         supabase.table('sync_history').insert({
             'company_id': company_id,
@@ -193,10 +193,9 @@ async def sync_stock_items(
             "synced": synced,
             "failed": len(errors)
         }
+
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
-
 @app.post("/api/sync/outstanding")
 async def sync_outstanding(
     outstanding: List[Dict],
