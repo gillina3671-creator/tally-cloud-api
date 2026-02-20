@@ -161,9 +161,12 @@ async def sync_stock_items(
                 else:
                     # INSERT new record
                     item['created_at'] = datetime.now().isoformat()
-                    supabase.table('stock_items').insert(item).execute()
+                    response = supabase.table('stock_items').insert(item).execute()
 
-                synced += 1
+                if response.data:
+                    synced += 1
+                else:
+                    errors.append(str(response.error))
 
             except Exception as e:
                 errors.append(f"{item.get('name', 'Unknown')}: {str(e)}")
